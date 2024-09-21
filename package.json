@@ -10,9 +10,15 @@
   },
   "dependencies": {
     "expo": "~51.0.28",
+    "expo-file-system": "~17.0.1",
+    "expo-sharing": "~12.0.1",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
-    "react-native": "0.74.5"
+    "react-native": "0.74.5",
+    "react-native-file-viewer": "^2.1.5",
+    "react-native-passkit-wallet": "^0.1.6",
+    "react-native-webview": "13.8.6",
+    "expo-dev-client": "~4.0.26"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

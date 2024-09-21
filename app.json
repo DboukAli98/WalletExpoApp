@@ -12,7 +12,19 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.dalix1998.WalletApp",
+      "infoPlist": {
+        "NSAppleMusicUsageDescription": "This app requires access to your Apple Wallet to store passes.",
+        "com.apple.developer.passkit.pass-type-identifiers": [
+          "XCV2AU47SU.pass.*"
+        ]
+      },
+      "entitlements": {
+        "com.apple.developer.passkit.pass-type-identifiers": [
+          "XCV2AU47SU.pass.*"
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -22,6 +34,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "24ed83a3-4e84-4b35-ba2c-4b6007d7ef8a"
+      }
     }
   }
 }
