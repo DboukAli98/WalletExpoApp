@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, Alert, Linking } from "react-native";
 import { WebView } from "react-native-webview";
 import * as FileSystem from "expo-file-system";
-import PassKit from "react-native-passkit-wallet"; // Import PassKit
+import PassKit from "react-native-passkit-wallet";
 
 export default function App() {
   const originalWarn = console.warn;
@@ -38,7 +38,6 @@ export default function App() {
           console.log("File created at:", fileUri);
           console.log("File size:", fileInfo.size); // Log file size
 
-          // Use PassKit to add the pass to Apple Wallet
           try {
             const result = await PassKit.addPass(fileUri);
             if (result) {

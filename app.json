@@ -13,15 +13,9 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.dalix1998.WalletApp",
-      "infoPlist": {
-        "NSAppleMusicUsageDescription": "This app requires access to your Apple Wallet to store passes.",
-        "com.apple.developer.passkit.pass-type-identifiers": [
-          "XCV2AU47SU.pass.*"
-        ]
-      },
+      "bundleIdentifier": "com.dalix1998.expowallet",
       "entitlements": {
-        "com.apple.developer.passkit.pass-type-identifiers": [
+        "com.apple.developer.pass-type-identifiers": [
           "XCV2AU47SU.pass.*"
         ]
       }
