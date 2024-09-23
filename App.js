@@ -1,8 +1,8 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Alert, Linking } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import { WebView } from "react-native-webview";
-import * as FileSystem from "expo-file-system";
 import PassKit from "react-native-passkit-wallet";
+
 
 export default function App() {
   const originalWarn = console.warn;
@@ -24,43 +24,14 @@ export default function App() {
     const messageData = JSON.parse(event.nativeEvent.data);
     if (messageData.type === "openWallet") {
       try {
-        // Create a temporary file path
-        const fileUri = `${FileSystem.documentDirectory}temp.pkpass`;
+        // Use the base64 data directly as a data URL
+        const pkpassDataUrl = `data:application/vnd.apple.pkpass;base64,${messageData.data}`;
 
-        // Write base64 data to the file
-        await FileSystem.writeAsStringAsync(fileUri, messageData.data, {
-          encoding: FileSystem.EncodingType.Base64,
-        });
-
-        // Check if file exists and log the path
-        const fileInfo = await FileSystem.getInfoAsync(fileUri);
-        if (fileInfo.exists) {
-          console.log("File created at:", fileUri);
-          console.log("File size:", fileInfo.size); // Log file size
-
-          try {
-            const result = await PassKit.addPass(fileUri);
-            if (result) {
-              Alert.alert("Success", "Pass added to Wallet successfully!");
-            } else {
-              Alert.alert("Failed", "Unable to add the pass to Wallet.");
-            }
-          } catch (err) {
-            console.error("Error adding pass to Wallet:", err);
-            Alert.alert(
-              "Error",
-              "Unable to add the pass to Wallet. Make sure your device supports Apple Wallet."
-            );
-          }
-        } else {
-          console.log("File not created.");
-        }
+        
+        
       } catch (error) {
-        console.log("Error creating file:", error);
-        Alert.alert(
-          "Error",
-          "An error occurred while creating the PKPass file."
-        );
+        console.log("Error processing base64 data:", error);
+        Alert.alert("Error", "An error occurred while processing the PKPass data.");
       }
     }
   };
