@@ -3,7 +3,6 @@ import { StyleSheet, View, Alert } from "react-native";
 import { WebView } from "react-native-webview";
 import PassKit from "react-native-passkit-wallet";
 
-
 export default function App() {
   const originalWarn = console.warn;
 
@@ -24,14 +23,28 @@ export default function App() {
     const messageData = JSON.parse(event.nativeEvent.data);
     if (messageData.type === "openWallet") {
       try {
-        // Use the base64 data directly as a data URL
-        const pkpassDataUrl = `data:application/vnd.apple.pkpass;base64,${messageData.data}`;
+        // Use the base64 data directly
+        const pkpassBase64 = messageData.data;
 
-        
-        
+        // Add the pass to the wallet
+        const result = await PassKit.addPKPassToWallet(pkpassBase64);
+
+        if (result) {
+          console.log("Pass added successfully to the wallet");
+          Alert.alert(
+            "Success",
+            "The pass has been added to your Apple Wallet."
+          );
+        } else {
+          console.log("Failed to add pass to the wallet");
+          Alert.alert("Error", "Failed to add the pass to your Apple Wallet.");
+        }
       } catch (error) {
         console.log("Error processing base64 data:", error);
-        Alert.alert("Error", "An error occurred while processing the PKPass data.");
+        Alert.alert(
+          "Error",
+          "An error occurred while processing the PKPass data."
+        );
       }
     }
   };
